@@ -107,11 +107,18 @@ def predict(w, b, X):
     Y_prediction = np.zeros((1, m))
 
     A = sigmoid(np.dot(w.T, X) + b)
+
+    # for i in range(m):
+        # if A[0, i] > 0.5: # A[0,i] numpy赋予数组的一种写法表达
+    #         Y_prediction[0, i] = 1
+    #     else:
+    #         Y_prediction[0, i] = 0
+
     for i in range(m):
-        if A[0, i] > 0.5:
-            Y_prediction[0, i] = 1
+        if A[0][i] > 0.5:
+            Y_prediction[0][i] = 1
         else:
-            Y_prediction[0, i] = 0
+            Y_prediction[0][i] = 0    
 
     return Y_prediction
 
