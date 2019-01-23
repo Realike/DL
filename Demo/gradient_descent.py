@@ -3,7 +3,7 @@ import numpy as np
 
 # y_data = b + w * x_data
 x_data = [ 338., 333., 328., 207., 226., 25., 179., 60., 208., 606.]
-y_data = [ 640., 633., 619., 393., 428., 27., 193., 66., 226., 2591.]
+y_data = [ 640., 633., 619., 393., 428., 27., 193., 66., 226., 1591.]
 
 
 x = np.arange(-200, -100, 1)
@@ -25,12 +25,15 @@ for i in range(len(x)):
 # y_data = b + w * x_data
 b = -120 # initial b
 w = -4 # initial w
-lr =0.0000001 # learning rate
+lr = 1 # learning rate
 iteration = 100000
 
 # store initial values for plotting.
 b_history = [b]
 w_history = [w]
+
+lr_b = 0
+lr_w = 0
 
 # iteration
 for i in range(iteration):
@@ -40,9 +43,12 @@ for i in range(iteration):
         b_grad = b_grad - 2.0*(y_data[n] - (b + w*x_data[n]))*1.0
         w_grad = w_grad - 2.0*(y_data[n] - (b + w*x_data[n]))*x_data[n]
 
+    lr_b = lr_b + b_grad ** 2
+    lr_w = lr_w + w_grad ** 2 
+
     # update parameters.
-    b = b - lr * b_grad
-    w = w - lr * w_grad
+    b = b - lr/np.sqrt(lr_b) * b_grad
+    w = w - lr/np.sqrt(lr_w) * w_grad
 
     # store parameters for plotting
     b_history.append(b)
