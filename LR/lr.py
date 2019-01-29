@@ -70,11 +70,12 @@ def propagate(w, b, X, Y):
     A = sigmoid(np.dot(w.T, X)+b)
     cost = -(np.sum(Y*np.log(A)+(1-Y)*np.log(1-A)))/m
 
-    # 反向传播
+    # 一层sigmoid反向传播
     dZ = A - Y
     dw = (np.dot(X, dZ.T))/m
     db = np.sum(dZ)/m
 
+    # print("dZ" , dZ)
     # print("dw" , dw)
     # print("db" , db)
 
