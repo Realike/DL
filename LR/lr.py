@@ -12,9 +12,15 @@ m_train = train_set_x_orig.shape[0]  # 训练集大小
 m_test = test_set_x_orig.shape[0]  # 测试集大小
 num_px = train_set_x_orig.shape[1]  # 图片长宽度64x64
 
+# print(m_train)
+# print(num_px)
+
 # 图片数据向量化
 train_set_x = train_set_x_orig.reshape(train_set_x_orig.shape[0], -1).T
 test_set_x = test_set_x_orig.reshape(test_set_x_orig.shape[0], -1).T
+
+# print(train_set_x)
+# print(test_set_x[:10])
 
 # 数据标准化(3原色取值范围0-255)
 train_set_x = train_set_x/255
@@ -69,6 +75,9 @@ def propagate(w, b, X, Y):
     dw = (np.dot(X, dZ.T))/m
     db = np.sum(dZ)/m
 
+    # print("dw" , dw)
+    # print("db" , db)
+
     grads = {"dw": dw, "db": db}
 
     return grads, cost
@@ -118,7 +127,7 @@ def predict(w, b, X):
         if A[0][i] > 0.5:
             Y_prediction[0][i] = 1
         else:
-            Y_prediction[0][i] = 0    
+            Y_prediction[0][i] = 0
 
     return Y_prediction
 
@@ -163,3 +172,7 @@ def logistic_model(X_train, Y_train, X_test, Y_test, learning_rate=0.1, num_iter
 # 运行模型
 d = logistic_model(train_set_x, train_set_y, test_set_x, test_set_y,
                    learning_rate=0.005, num_iterations=2000, print_cost=True)
+
+# costs picture
+plt.plot(d['costs'], 'o-')
+plt.show()
