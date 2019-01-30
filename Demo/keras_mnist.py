@@ -28,12 +28,14 @@ def load_data():
 (x_train, y_train), (x_test, y_test) = load_data()
 
 model = Sequential()
-model.add(Dense(input_dim=28*28, units=500, activation='sigmoid'))
-model.add(Dense(units=500,activation='sigmoid'))
-model.add(Dense(units=500,activation='sigmoid'))
+
+# use activation='relu', x_train accuracy 99.48% -> 1.0%, x_test accuracy 94.% -> 96.51%
+model.add(Dense(input_dim=28*28, units=500, activation='relu'))
+model.add(Dense(units=500,activation='relu'))
+model.add(Dense(units=500,activation='relu'))
 model.add(Dense(units=10,activation='softmax'))
 
-# use categorical_crossentropy and adam , x_train accuracy 11.% -> 99.% , x_test accuracy 11.% -> 94.%
+# use categorical_crossentropy and adam, x_train accuracy 11.% -> 99.48%, x_test accuracy 11.% -> 94.%
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 model.fit(x_train, y_train, batch_size=100, epochs=20)
