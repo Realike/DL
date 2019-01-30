@@ -33,7 +33,8 @@ model.add(Dense(units=500,activation='sigmoid'))
 model.add(Dense(units=500,activation='sigmoid'))
 model.add(Dense(units=10,activation='softmax'))
 
-model.compile(loss='mse', optimizer=SGD(lr=0.01), metrics=['accuracy'])
+# use categorical_crossentropy and adam , x_train accuracy 11.% -> 99.% , x_test accuracy 11.% -> 94.%
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 model.fit(x_train, y_train, batch_size=100, epochs=20)
 
