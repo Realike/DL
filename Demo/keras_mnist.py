@@ -22,6 +22,7 @@ def load_data():
 
     x_train = x_train / 255
     x_test = x_test / 255
+    x_test = np.random.normal(x_test) # 加入随机噪声 noise
 
     return (x_train, y_train), (x_test, y_test)
 
@@ -29,10 +30,13 @@ def load_data():
 
 model = Sequential()
 
-# use activation='relu', x_train accuracy 99.48% -> 100.00%, x_test accuracy 94.% -> 96.51%
+# use activation='relu', x_train accuracy 99.48% -> 100.00%(overfitting), x_test accuracy 94.% -> 96.51%
 model.add(Dense(input_dim=28*28, units=500, activation='relu'))
+model.add(Dropout(0.7))
 model.add(Dense(units=500,activation='relu'))
+model.add(Dropout(0.7))
 model.add(Dense(units=500,activation='relu'))
+model.add(Dropout(0.7))
 model.add(Dense(units=10,activation='softmax'))
 
 # use categorical_crossentropy and adam, x_train accuracy 11.% -> 99.48%, x_test accuracy 11.% -> 94.%
@@ -40,6 +44,8 @@ model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accur
 
 model.fit(x_train, y_train, batch_size=100, epochs=20)
 
-score = model.evaluate(x_test, y_test)
+score_train = model.evaluate(x_train, y_train)
+print('\nTrain Acc:', score_train[1])
 
-print('\nTest Acc:', score[1])
+score_test = model.evaluate(x_test, y_test)
+print('\nTest Acc:', score_test[1])
