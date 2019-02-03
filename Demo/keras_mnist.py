@@ -29,7 +29,7 @@ def load_data():
 
 model = Sequential()
 
-# use activation='relu', x_train accuracy 99.48% -> 1.0%, x_test accuracy 94.% -> 96.51%
+# use activation='relu', x_train accuracy 99.48% -> 100.00%, x_test accuracy 94.% -> 96.51%
 model.add(Dense(input_dim=28*28, units=500, activation='relu'))
 model.add(Dense(units=500,activation='relu'))
 model.add(Dense(units=500,activation='relu'))
